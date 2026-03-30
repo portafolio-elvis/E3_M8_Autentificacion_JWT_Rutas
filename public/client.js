@@ -1,9 +1,11 @@
+// Manejar envío del formulario de registro
 async function handleRegister(event) {
   event.preventDefault();
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
+  // Enviar datos al servidor
   const response = await fetch('/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -20,12 +22,14 @@ async function handleRegister(event) {
   }
 }
 
+// Manejar envío del formulario de login
 async function handleLogin(event) {
   event.preventDefault();
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
+  // Enviar credenciales al servidor
   const response = await fetch('/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -35,6 +39,7 @@ async function handleLogin(event) {
   const data = await response.json();
 
   if (response.ok) {
+    // Guardar token en localStorage para futuros requests
     localStorage.setItem('token', data.token);
     document.getElementById('message').textContent = 'Login exitoso';
   } else {
@@ -42,6 +47,7 @@ async function handleLogin(event) {
   }
 }
 
+// Asignar manejadores a los formularios cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
   const registerForm = document.getElementById('registerForm');
   const loginForm = document.getElementById('loginForm');
